@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Редактировать категорию</h1>
+                    <h1 class="m-0">Добавить теги</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -23,11 +23,10 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <form action="{{route('category.update', ['category'=>$category->id])}}" method="post">
+                <form action="{{route('tegs.store')}}" method="post">
                     @csrf
-                    @method('patch')
                     <div class="form-group">
-                        <input type="text" name="title" value="{{$category->title}}" class="form-control" placeholder="Наименование">
+                        <input type="text" name="title" class="form-control" placeholder="Наименование">
                     </div>
 
                     <div class="form-group">

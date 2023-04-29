@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TegController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::group(['prefix'=>'categories'], function (){
    Route::get('{category}/edit',[CategoryController::class, 'edit'])->name('category.edit');
    Route::patch('{category}',[CategoryController::class, 'update'])->name('category.update');
 
-   Route::delete('/{category}',[CategoryController::class, 'delete'])->name('category.delete');
+   Route::delete('/{category}',[CategoryController::class, 'destroy'])->name('category.delete');
 });
+
+Route::resource('/tegs', TegController::class);
 

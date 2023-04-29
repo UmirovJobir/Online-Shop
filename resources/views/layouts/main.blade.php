@@ -18,10 +18,10 @@
 <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="" src="adminlte/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-        <p class="animation__shake">Магазинчик</p>
-    </div>
+{{--    <div class="preloader flex-column justify-content-center align-items-center">--}}
+{{--        <img class="" src="adminlte/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">--}}
+{{--        <p class="animation__shake">Магазинчик</p>--}}
+{{--    </div>--}}
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -162,7 +162,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/gallery.html" class="nav-link">
+                    <a href="{{ route('tegs.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-tags"></i>
                         <p>
                             Теги

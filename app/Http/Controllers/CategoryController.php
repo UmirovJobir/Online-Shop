@@ -39,7 +39,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return view('category.edit', compact('category'));
+        return view('category.edit', ['category'=>$category]);
     }
 
 
@@ -48,7 +48,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         $category->update($data);
 
-        return view('category.show', compact($category));
+        return view('category.show', ['category'=>$category]);
     }
 
 
