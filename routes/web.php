@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ColorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TegController;
@@ -32,4 +33,5 @@ Route::group(['prefix'=>'categories'], function (){
 });
 
 Route::resource('/tegs', TegController::class);
+Route::resource('/colors', ColorController::class);
 

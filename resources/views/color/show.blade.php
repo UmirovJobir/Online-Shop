@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Тег</h1>
+                    <h1 class="m-0">Цвет</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -27,9 +27,9 @@
                     <div class="card">
                         <div class="card-header d-flex p-3">
                             <div class="mr-2">
-                            <a href="{{route('tegs.edit', ['teg'=>$teg->id])}}" class="btn btn-primary">Редактировать</a>
+                                <a href="{{route('colors.edit', ['color'=>$color->id])}}" class="btn btn-primary">Редактировать</a>
                             </div>
-                            <form action="{{route('tegs.destroy', ['teg'=>$teg->id])}}" method="post">
+                            <form action="{{route('colors.destroy',['color'=>$color->id])}}" method="post">
                                 @csrf
                                 @method('delete')
                                 <input type="submit" class="btn btn-danger" value="Удалить">
@@ -41,11 +41,15 @@
                                 <tbody>
                                     <tr>
                                         <td>ID</td>
-                                        <td>{{$teg->id}}   </td>
+                                        <td>{{$color->id}}   </td>
                                     </tr>
                                     <tr>
                                         <td>Наименование</td>
-                                        <td>{{$teg->title}}</td>
+                                        <td>{{$color->title}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Цвет</td>
+                                        <td><div style="width: 16px; height: 16px; border-radius: 20px; background: {{'#'.$color->title}}"></div></td>
                                     </tr>
                                 </tbody>
                             </table>

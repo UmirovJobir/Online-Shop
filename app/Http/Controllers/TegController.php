@@ -47,6 +47,8 @@ class TegController extends Controller
 
     public function destroy(Teg $teg)
     {
-        //
+        $teg->delete();
+
+        return redirect()->route('tegs.index');
     }
 }
