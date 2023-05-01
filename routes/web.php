@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TegController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +37,5 @@ Route::group(['prefix'=>'categories'], function (){
 Route::resource('/tegs', TegController::class);
 Route::resource('/colors', ColorController::class);
 Route::resource('/users', UserController::class);
+Route::resource('/products', ProductController::class);
 
