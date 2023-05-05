@@ -11,4 +11,10 @@ class ProductTeg extends Model
 
     protected $table = 'product_tegs';
     protected $guarded = false;
+
+
+    public function teg()
+    {
+        return $this->belongsTo(Teg::class, 'teg_id', 'id');
+    }
 }

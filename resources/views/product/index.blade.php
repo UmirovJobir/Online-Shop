@@ -35,13 +35,38 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Наименование</th>
+                                    <th>Description</th>
+                                    <th>Content</th>
+                                    <th>Count</th>
+                                    <th>Price</th>
+                                    <th>Category</th>
+                                    <th>Published</th>
+                                    <th>Images</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($products as $product)
                                     <tr>
                                         <td>{{$product->id}}</td>
-                                        <td><a href="{{route('category.show',$product->id)}}">{{$product->title}}</a></td>
+                                        <td><a href="{{route('products.show',$product->id)}}">{{$product->title}}</a></td>
+                                        <td>{{$product->description}}</td>
+                                        <td>{{$product->content}}</td>
+                                        <td>{{$product->count}}</td>
+                                        <td>{{$product->price}}</td>
+                                        <td>{{$product->category_id}}</td>
+                                        <td>{{$product->is_published}}</td>
+                                        <td>
+                                            @if ($product->images)
+                                                @php
+                                                    $images=explode(',',$product->images);
+                                                @endphp
+                                                <img src="{{asset('storage/products/'.$images[0])}}" width="100" alt="photo">
+{{--                                                @foreach($images as $image)--}}
+{{--                                                    <img src="{{asset('storage/products/'.$image)}}" width="100" alt="photo">--}}
+{{--                                                @endforeach--}}
+                                            @endif
+                                        </td>
+
                                     </tr>
                                 @endforeach
                                 </tbody>

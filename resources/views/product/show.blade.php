@@ -1,12 +1,22 @@
 @extends('layouts.main')
 
 @section('content')
+    <style>
+        img {
+            float: left;
+            width:  100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+    </style>
+
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Категория</h1>
+                    <h1 class="m-0">Продуст ID-{{$product->id}}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -27,9 +37,9 @@
                     <div class="card">
                         <div class="card-header d-flex p-3">
                             <div class="mr-2">
-                                <a href="{{route('category.edit', ['category'=>$category->id])}}" class="btn btn-primary">Редактировать</a>
+                                <a href="{{route('products.edit', ['product'=>$product->id])}}" class="btn btn-primary">Редактировать</a>
                             </div>
-                            <form action="{{route('category.delete',['category'=>$category->id])}}" method="post">
+                            <form action="{{route('products.destroy',['product'=>$product->id])}}" method="post">
                                 @csrf
                                 @method('delete')
                                 <input type="submit" class="btn btn-danger" value="Удалить">
@@ -41,12 +51,52 @@
                                 <tbody>
                                     <tr>
                                         <td>ID</td>
-                                        <td>{{$category->id}}   </td>
+                                        <td>{{$product->id}} </td>
                                     </tr>
                                     <tr>
                                         <td>Наименование</td>
-                                        <td>{{$category->title}}</td>
+                                        <td>{{$product->title}}</td>
+                                    </tr><tr>
+                                        <td>Description</td>
+                                        <td>{{$product->description}}</td>
                                     </tr>
+                                    <tr>
+                                        <td>Content</td>
+                                        <td>{{$product->content}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Count</td>
+                                        <td>{{$product->count}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Price</td>
+                                        <td>{{$product->price}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Category</td>
+                                        <td>{{$product->category_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Published</td>
+                                        <td>{{$product->is_published}}</td>
+                                    </tr>
+{{--                                    <tr>--}}
+{{--                                        <td>Image</td>--}}
+{{--                                        <td><img width="22%" src="{{asset('storage/'.$product->preview_image)}}"></td>--}}
+{{--                                    </tr>--}}
+                                <tr>
+                                    <td>Images</td>
+                                    <td>
+                                        @if ($product->images)
+                                            @php
+                                                $images=explode(',',$product->images);
+                                            @endphp
+                                            @foreach($images as $image)
+                                                <img src="{{asset('storage/products/'.$image)}}" alt="photo">
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

@@ -11,4 +11,9 @@ class Teg extends Model
 
     protected $table = 'tegs';
     protected $guarded = false;
+
+    public function product()
+    {
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
 }

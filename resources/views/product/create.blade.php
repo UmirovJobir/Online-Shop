@@ -35,19 +35,28 @@
                         <textarea name="content" class="form-control" cols="30" rows="10" placeholder="Контент"></textarea>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="preview_image" class="form-control" placeholder="Фото">
-                    </div>
-                    <div class="form-group">
                         <input type="text" name="price" class="form-control" placeholder="Цена">
                     </div>
                     <div class="form-group">
                         <input type="text" name="count" class="form-control" placeholder="Количество">
                     </div>
 
+{{--                    <div class="form-group">--}}
+{{--                        <div class="input-group">--}}
+{{--                            <div class="custom-file">--}}
+{{--                                <input name="preview_image" type="file" class="custom-file-input" id="exampleInputFile">--}}
+{{--                                <label class="custom-file-label" for="exampleInputFile">Выберите файл</label>--}}
+{{--                            </div>--}}
+{{--                            <div class="input-group-append">--}}
+{{--                                <span class="input-group-text">Загрузить</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <div class="form-group">
                         <div class="input-group">
                             <div class="custom-file">
-                                <input name="preview_image" type="file" class="custom-file-input" id="exampleInputFile">
+                                <input id="images" type="file" class="custom-file-input" multiple="multiple" name="images[]">
+                                <span style="color:red">{{$errors->first('images')}}</span><br>
                                 <label class="custom-file-label" for="exampleInputFile">Выберите файл</label>
                             </div>
                             <div class="input-group-append">
@@ -58,22 +67,24 @@
 
                     <div class="form-group">
                         <select name="category_id" class="form-control select2" style="width: 100%;">
-                            <option selected="selected" disabled>Выберите категорию</option>
-                            <option value="1">Alaska</option>
-                            <option value="2">California</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->title}}</option>
+                            @endforeach
                         </select>
                     </div>
 
                     <div class="form-group">
                         <select name="tegs[]" class="tegs" multiple="multiple" data-placeholder="Выберите тег" style="width: 100%;">
-                            <option value="1">Alabama</option>
-                            <option value="2">Alaska</option>
+                            @foreach($tegs as $teg)
+                                <option value="{{$teg->id}}">{{$teg->title}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <select name="colors[]" class="colors" multiple="multiple" data-placeholder="Выберите цвет" style="width: 100%;">
-                            <option value="1">Alabama</option>
-                            <option value="2">Alaska</option>
+                            @foreach($colors as $color)
+                                <option value="{{$color->id}}">{{$color->title}}</option>
+                            @endforeach
                         </select>
                     </div>
 

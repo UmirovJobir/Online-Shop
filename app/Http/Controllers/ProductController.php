@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\product\ProductStoreRequest;
+use App\Http\Requests\product\ProductUpdateRequest;
+use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductTeg;
+use App\Models\Teg;
+use App\Models\ColorProduct;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,18 +26,32 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('product.create');
+        $tegs = Teg::all();
+        $colors = Color::all();
+        $categories = Category::all();
+        return view('product.create', compact('tegs', 'colors', 'categories'));
     }
 
 
     public function store(ProductStoreRequest $request)
     {
         $data = $request->validated();
-        $data['preview_image'] = Storage::disk('public')->put('images', $data['preview_image']);
 
-        $tegsIds = $data['tags'];
+//        $data['images'] = Storage::disk('public')->put('products', $data['images']);
+
+        $image_names = [];
+        foreach($request->file('images') as $key => $item) {
+            $file_names = time() . '_' . $key . '.' . $item->getClientOriginalExtension();
+            $item->storeAs('/public/products', $file_names);
+            $image_names[] = $file_names;
+        }
+        $images = implode(',', $image_names);
+
+        $data['images'] = $images ?? '';
+
+        $tegsIds = $data['tegs'];
         $colorsIds = $data['colors'];
-        unset($data['tags'], $data['colors']);
+        unset($data['tegs'], $data['colors']);
 
         $product = Product::firstOrCreate([
             'title' => $data['title']
@@ -42,43 +61,53 @@ class ProductController extends Controller
 
             ProductTeg::firstOrCreate([
                 'product_id' => $product->id,
-                'tag_id' => $tagsId,
+                'teg_id' => $tagsId,
 
             ]);
         }
 
         foreach ($colorsIds as $colorsId){
 
-            Color::firstOrCreate([
+            ColorProduct::firstOrCreate([
                 'product_id' => $product->id,
-                'tag_id' => $colorsId,
+                'color_id' => $colorsId,
 
             ]);
         }
-    }
 
-
-    public function show($id)
-    {
-        //
+        return redirect()->route('products.index');
     }
 
 
 
-    public function edit($id)
+    public function show(Product $product)
     {
-        //
+        $tegs = ProductTeg::get();
+        return view('product.show', compact('product'));
     }
 
 
-    public function update(Request $request, $id)
+
+    public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        return view('product.edit', ['product'=>$product,'categories'=>$categories]);
+    }
+
+
+    public function update(ProductUpdateRequest $request, Product $product)
+    {
+        dd($request);
     }
 
 
     public function destroy($id)
     {
-        //
+        $tegs = Product::with(['tegs'])->get();
+
+        return view('test', ['tegs'=>$tegs]);
     }
 }
+
+
+
