@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductResource;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductAPIController extends Controller
@@ -10,7 +12,8 @@ class ProductAPIController extends Controller
 
     public function index()
     {
-        return 111111;
+        $products = Product::all();
+        return ProductResource::collection($products);
     }
 
     public function create()

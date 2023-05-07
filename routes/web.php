@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ColorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TegController;
 use App\Http\Controllers\UserController;
@@ -19,7 +20,7 @@ use App\Http\Controllers\ProductController;
 */
 
 
-Route::get('/', App\Http\Controllers\Main\IndexController::class)->name('main.index');
+Route::get('/admin', App\Http\Controllers\Main\IndexController::class)->name('main.index');
 
 Route::group(['prefix'=>'categories'], function (){
    Route::get('/',[CategoryController::class, 'index'])->name('category.index');

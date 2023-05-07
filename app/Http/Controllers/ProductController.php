@@ -37,7 +37,10 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
-//        $data['images'] = Storage::disk('public')->put('products', $data['images']);
+//        $data['preview_image'] = Storage::disk('public')->put('products', $data['images']);
+
+        $preview_image = time().'.'.$request->file('preview_image')->getClientOriginalExtension();
+        $request->file('preview_image')->storeAs('/public/images', $preview_image);
 
         $image_names = [];
         foreach($request->file('images') as $key => $item) {
@@ -47,6 +50,7 @@ class ProductController extends Controller
         }
         $images = implode(',', $image_names);
 
+        $data['preview_image'] = $preview_image ?? '';
         $data['images'] = $images ?? '';
 
         $tegsIds = $data['tegs'];

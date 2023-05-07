@@ -56,7 +56,8 @@
                                     <tr>
                                         <td>Наименование</td>
                                         <td>{{$product->title}}</td>
-                                    </tr><tr>
+                                    </tr>
+                                    <tr>
                                         <td>Description</td>
                                         <td>{{$product->description}}</td>
                                     </tr>
@@ -80,23 +81,27 @@
                                         <td>Published</td>
                                         <td>{{$product->is_published}}</td>
                                     </tr>
-{{--                                    <tr>--}}
-{{--                                        <td>Image</td>--}}
-{{--                                        <td><img width="22%" src="{{asset('storage/'.$product->preview_image)}}"></td>--}}
-{{--                                    </tr>--}}
-                                <tr>
-                                    <td>Images</td>
-                                    <td>
-                                        @if ($product->images)
-                                            @php
-                                                $images=explode(',',$product->images);
-                                            @endphp
-                                            @foreach($images as $image)
-                                                <img src="{{asset('storage/products/'.$image)}}" alt="photo">
-                                            @endforeach
+                                    <tr>
+                                        <td>Image</td>
+                                        @if ($product->preview_image)
+                                            <td><img width="22%" src="{{asset('storage/images/'.$product->preview_image)}}"></td>
+                                        @else
+                                            <td><img width="22%" src="{{asset('storage/Unknown_person.jpeg')}}"></td>
                                         @endif
-                                    </td>
-                                </tr>
+                                    </tr>
+                                    <tr>
+                                        <td>Images</td>
+                                        <td>
+                                            @if ($product->images)
+                                                @php
+                                                    $images=explode(',',$product->images);
+                                                @endphp
+                                                @foreach($images as $image)
+                                                    <img src="{{asset('storage/products/'.$image)}}" alt="photo">
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

@@ -29,9 +29,26 @@
                             <a href="{{route('products.create')}}" class="btn btn-primary">Добавить</a>
                         </div>
 
+                        @foreach($products as $product)
+                            <div class="card" style="width: 18rem;">
+                                @if ($product->preview_image)
+                                    <img width="15%" src="{{asset('storage/images/'.$product->preview_image)}}" class="card-img-top" alt="...">
+                                @else
+                                    <img width="22%" src="{{asset('storage/Unknown_person.jpeg')}}" class="card-img-top" alt="...">
+                                @endif
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <a href="{{route('products.show',$product->id)}}" class="btn btn-primary">Open</a>
+                                </div>
+                            </div>
+                        @endforeach
+
+
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover text-nowrap">
                                 <thead>
+
                                 <tr>
                                     <th>ID</th>
                                     <th>Наименование</th>

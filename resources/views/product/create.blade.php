@@ -41,23 +41,26 @@
                         <input type="text" name="count" class="form-control" placeholder="Количество">
                     </div>
 
-{{--                    <div class="form-group">--}}
-{{--                        <div class="input-group">--}}
-{{--                            <div class="custom-file">--}}
-{{--                                <input name="preview_image" type="file" class="custom-file-input" id="exampleInputFile">--}}
-{{--                                <label class="custom-file-label" for="exampleInputFile">Выберите файл</label>--}}
-{{--                            </div>--}}
-{{--                            <div class="input-group-append">--}}
-{{--                                <span class="input-group-text">Загрузить</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    <!-- Image -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input name="preview_image" type="file" class="custom-file-input" id="exampleInputFile">
+                                <label class="custom-file-label" for="exampleInputFile">Выберите файл</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Загрузить</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Images -->
                     <div class="form-group">
                         <div class="input-group">
                             <div class="custom-file">
                                 <input id="images" type="file" class="custom-file-input" multiple="multiple" name="images[]">
                                 <span style="color:red">{{$errors->first('images')}}</span><br>
-                                <label class="custom-file-label" for="exampleInputFile">Выберите файл</label>
+                                <label class="custom-file-label" for="exampleInputFile">Выберите файлы</label>
                             </div>
                             <div class="input-group-append">
                                 <span class="input-group-text">Загрузить</span>
