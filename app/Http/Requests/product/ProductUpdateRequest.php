@@ -28,13 +28,14 @@ class ProductUpdateRequest extends FormRequest
             "description" => "required",
             "content" => "required",
             "preview_image" => "nullable",
-            "images" => "required",
+            "images" => "nullable",
             "price" => "required",
             "count" => "required",
             "is_published" => "nullable",
             "category_id" => "required",
             "tegs" => "nullable|array",
             "colors" => "nullable|array",
+            "product_images"=>"nullable|array",
         ];
     }
 }

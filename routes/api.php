@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ProductAPIController;
+use App\Http\Controllers\API\FilterListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/products', [ProductAPIController::class, 'index']);
+Route::get('/products/filters', FilterListController::class);
+

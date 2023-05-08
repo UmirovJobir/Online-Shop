@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\product\ProductStoreRequest;
 use App\Http\Requests\product\ProductUpdateRequest;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductTeg;
 use App\Models\Teg;
 use App\Models\ColorProduct;
@@ -37,25 +39,31 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
-//        $data['preview_image'] = Storage::disk('public')->put('products', $data['images']);
-
-        $preview_image = time().'.'.$request->file('preview_image')->getClientOriginalExtension();
-        $request->file('preview_image')->storeAs('/public/images', $preview_image);
-
-        $image_names = [];
-        foreach($request->file('images') as $key => $item) {
-            $file_names = time() . '_' . $key . '.' . $item->getClientOriginalExtension();
-            $item->storeAs('/public/products', $file_names);
-            $image_names[] = $file_names;
+        if (array_key_exists('product_images', $data)){
+            $productImages = $data['product_images'];
         }
-        $images = implode(',', $image_names);
 
-        $data['preview_image'] = $preview_image ?? '';
-        $data['images'] = $images ?? '';
+        if (array_key_exists('preview_image', $data)){
+            $data['preview_image'] = Storage::disk('public')->put('preview_image', $data['preview_image']);
+        }
+
+//        $preview_image = time().'.'.$request->file('preview_image')->getClientOriginalExtension();
+//        $request->file('preview_image')->storeAs('/public/images', $preview_image);
+//
+//        $image_names = [];
+//        foreach($request->file('images') as $key => $item) {
+//            $file_names = time() . '_' . $key . '.' . $item->getClientOriginalExtension();
+//            $item->storeAs('/public/products', $file_names);
+//            $image_names[] = $file_names;
+//        }
+//        $images = implode(',', $image_names);
+
+//        $data['preview_image'] = $preview_image ?? '';
+//        $data['images'] = $images ?? '';
 
         $tegsIds = $data['tegs'];
         $colorsIds = $data['colors'];
-        unset($data['tegs'], $data['colors']);
+        unset($data['tegs'], $data['colors'], $data['product_images']);
 
         $product = Product::firstOrCreate([
             'title' => $data['title']
@@ -79,6 +87,18 @@ class ProductController extends Controller
             ]);
         }
 
+        foreach ($productImages as $productImage) {
+            $currentImagesCount = ProductImage::where('product_id', $product->id)->count();
+
+            if ($currentImagesCount > 3) continue;
+            $filePath = Storage::disk('public')->put('products', $productImage);
+            ProductImage::create([
+                'product_id' => $product->id,
+                'file_path' => $filePath,
+
+            ]);
+        }
+
         return redirect()->route('products.index');
     }
 
@@ -86,8 +106,11 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $tegs = ProductTeg::get();
-        return view('product.show', compact('product'));
+        $tegs = $product->tegs;
+        $colors = $product->colors;
+        $category = $product->category->title;
+        $images = $product->productImages;
+        return view('product.show', compact('product','category', 'images', 'tegs','colors'));
     }
 
 
@@ -95,13 +118,17 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        return view('product.edit', ['product'=>$product,'categories'=>$categories]);
+        $tegs = Teg::all();
+        $colors = Color::all();
+        $images = $product->productImages;
+        return view('product.edit', ['product'=>$product,'categories'=>$categories, 'tegs'=>$tegs, 'colors'=>$colors, 'images'=>$images]);
     }
 
 
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        dd($request);
+        $data = $request->validated();
+        dd($data);
     }
 
 
