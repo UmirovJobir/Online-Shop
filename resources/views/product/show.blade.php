@@ -2,10 +2,10 @@
 
 @section('content')
     <style>
-        .preview_image {
+        img {
             float: left;
-            width:  100%;
-            height: 100%;
+            width:  200px;
+            height: 200px;
             object-fit: cover;
             margin-right: 10px;
         }
@@ -46,11 +46,11 @@
 {{--                            <h4><strong>{{$product->title}}</strong></h4>--}}
 {{--                            <p class="card-text">{{$product->description}}</p>--}}
 {{--                            <p><h5>{{$product->price}}</h5></p>--}}
-{{--                            @foreach($colors as $color)--}}
+{{--                            @foreach($product->colors as $color)--}}
 {{--                                <span style="width: 16px; height: 16px; white-space: pre-line; border-radius: 20px; color:{{'#'.$color->title}}; background: {{'#'.$color->title}}">00</span>--}}
 {{--                            @endforeach--}}
 {{--                            <br>--}}
-{{--                            @foreach($tegs as $teg)--}}
+{{--                            @foreach($product->tegs as $teg)--}}
 {{--                                <span style="white-space: pre-line; color:blue;">#{{$teg->title}}</span>--}}
 {{--                            @endforeach--}}
 {{--                            <p class="card-text"><small class="text-muted">{{$product->created_at}}</small></p>--}}
@@ -108,7 +108,7 @@
                                     </tr>
                                     <tr>
                                         <td>Category</td>
-                                        <td>{{$category}}</td>
+                                        <td>{{$product->category->title}}</td>
                                     </tr>
                                     <tr>
                                         <td>Published</td>
@@ -125,7 +125,7 @@
                                     <tr>
                                         <td>Images</td>
                                         <td>
-                                            @foreach($images as $image)
+                                            @foreach($product->productImages as $image)
                                                 <img src="{{asset('storage/'.$image->file_path)}}" alt="photo">
                                             @endforeach
                                         </td>
@@ -143,7 +143,7 @@
                                     <tr>
                                         <td>Tegs</td>
                                         <td>
-                                            @foreach($tegs as $teg)
+                                            @foreach($product->tegs as $teg)
                                                 <p style="color:blue;">#{{$teg->title}}</p>
                                             @endforeach
                                         </td>
@@ -151,7 +151,7 @@
                                     <tr>
                                         <td>Colors</td>
                                         <td>
-                                            @foreach($colors as $color)
+                                            @foreach($product->colors as $color)
                                                 <div style="width: 16px; height: 16px; border-radius: 20px; background: {{'#'.$color->title}}"></div>
                                             @endforeach
                                         </td>

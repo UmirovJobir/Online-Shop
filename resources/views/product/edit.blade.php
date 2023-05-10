@@ -54,33 +54,16 @@
                         </select>
                     </div>
 
-
-{{--                    <div class="form-group">--}}
-{{--                            <select id="tegs" name="tegs[]" class="tegs" multiple data-placeholder="Выберите тег" style="width: 100%;">--}}
-{{--                                    @foreach($tegs as $teg)--}}
-{{--                                        <option value="{{$teg->id}}" @selected($product->tegs->contains($teg->id))>{{$teg->title}}</option>--}}
-{{--                                            @if ($teg->id == old('myselect', $product_teg->id))--}}
-{{--                                                selected="selected"--}}
-{{--                                            @endif--}}
-
-{{--                                    @endforeach--}}
-{{--                            </select>--}}
-{{--                    </div>--}}
-
-                    <div class="m-2 p-2">
-                        <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select
-                            tags</label>
-                        <select id="tags" name="tags[]"
-                                class="form-control select2" style="width: 100%;">
-{{--                            @selected($product->tegs->contains($teg->id))--}}
-                            @foreach ($tegs as $teg)
-                                <option value="{{ $teg->id }}"
-                                    @if ($teg->id == old('myselect', $product->tegs->contains($teg->id)))
-                                        selected="selected"
-                                    @endif
-                                >{{ $teg->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="form-group">
+                            <select id="tegs" name="tegs[]" class="tegs" multiple data-placeholder="Выберите тег" style="width: 100%;">
+                                    @foreach($tegs as $teg)
+                                        <option value="{{$teg->id}}"
+                                            @if ($product->tegs->pluck('id')->contains($teg->id))
+                                                selected="selected"
+                                            @endif
+                                        >{{$teg->title}}</option>
+                                    @endforeach
+                            </select>
                     </div>
 
                     <div class="form-group">

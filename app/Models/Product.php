@@ -13,11 +13,6 @@ class Product extends Model
     protected $table = 'products';
     protected $guarded = false;
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
-    }
-
     public function getImageUrlAttribute()
     {
         if ($this->preview_image == null) {
@@ -25,6 +20,11 @@ class Product extends Model
         }else{
             return url('storage/' . $this->preview_image);
         }
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function colors()
@@ -39,7 +39,8 @@ class Product extends Model
 
     public function tegs()
     {
-        return $this->belongsToMany(Teg::class, 'product_tegs', 'product_id', 'teg_id');
+//        return $this->belongsToMany(Teg::class, 'product_tegs', 'product_id', 'teg_id');
+        return $this->belongsToMany(Teg::class)->as('tegs');
     }
 
 }

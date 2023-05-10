@@ -9,7 +9,7 @@ class ProductTeg extends Model
 {
     use HasFactory;
 
-    protected $table = 'product_tegs';
+    protected $table = 'product_teg';
     protected $guarded = false;
 
 

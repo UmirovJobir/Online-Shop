@@ -106,11 +106,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $tegs = $product->tegs;
-        $colors = $product->colors;
-        $category = $product->category->title;
-        $images = $product->productImages;
-        return view('product.show', compact('product','category', 'images', 'tegs','colors'));
+        return view('product.show', compact('product'));
     }
 
 
@@ -120,23 +116,30 @@ class ProductController extends Controller
         $categories = Category::all();
         $tegs = Teg::all();
         $colors = Color::all();
-        $images = $product->productImages;
-        return view('product.edit', ['product'=>$product,'categories'=>$categories, 'tegs'=>$tegs, 'colors'=>$colors, 'images'=>$images]);
+        return view('product.edit', ['product'=>$product,'categories'=>$categories, 'tegs'=>$tegs, 'colors'=>$colors]);
     }
 
 
     public function update(ProductUpdateRequest $request, Product $product)
     {
         $data = $request->validated();
-        dd($data);
+
+        $tegs = $data['tegs'];
+
+        unset($data['tegs']);
+
+        $product->update($data);
+
+        $product->tegs()->sync($tegs);
+        return view('product.show', ['product'=>$product]);
+
     }
 
 
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $tegs = Product::with(['tegs'])->get();
-
-        return view('test', ['tegs'=>$tegs]);
+        $product->delete();
+        return redirect()->route('products.index');
     }
 }
 
