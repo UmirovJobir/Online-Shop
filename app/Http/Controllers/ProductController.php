@@ -9,12 +9,14 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductImage;
-use App\Models\ProductTeg;
-use App\Models\Teg;
+use App\Models\ProductTag;
+use App\Models\Tag;
 use App\Models\ColorProduct;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
+
 
 class ProductController extends Controller
 {
@@ -28,10 +30,10 @@ class ProductController extends Controller
 
     public function create()
     {
-        $tegs = Teg::all();
+        $tags = Tag::all();
         $colors = Color::all();
         $categories = Category::all();
-        return view('product.create', compact('tegs', 'colors', 'categories'));
+        return view('product.create', compact('tags', 'colors', 'categories'));
     }
 
 
@@ -39,42 +41,21 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
-        if (array_key_exists('product_images', $data)){
-            $productImages = $data['product_images'];
-        }
-
-        if (array_key_exists('preview_image', $data)){
-            $data['preview_image'] = Storage::disk('public')->put('preview_image', $data['preview_image']);
-        }
-
-//        $preview_image = time().'.'.$request->file('preview_image')->getClientOriginalExtension();
-//        $request->file('preview_image')->storeAs('/public/images', $preview_image);
-//
-//        $image_names = [];
-//        foreach($request->file('images') as $key => $item) {
-//            $file_names = time() . '_' . $key . '.' . $item->getClientOriginalExtension();
-//            $item->storeAs('/public/products', $file_names);
-//            $image_names[] = $file_names;
-//        }
-//        $images = implode(',', $image_names);
-
-//        $data['preview_image'] = $preview_image ?? '';
-//        $data['images'] = $images ?? '';
-
-        $tegsIds = $data['tegs'];
+        $tagsIds = $data['tags'];
         $colorsIds = $data['colors'];
-        unset($data['tegs'], $data['colors'], $data['product_images']);
 
         $product = Product::firstOrCreate([
-            'title' => $data['title']
-        ], $data);
+            'title' => $data['title'],
+            'description' =>$data['description'],
+            'price' =>$data['price'],
+            'category_id' =>$data['category_id'],
+        ]);
 
-        foreach ($tegsIds as $tagsId){
 
-            ProductTeg::firstOrCreate([
+        foreach ($tagsIds as $tagsId){
+            ProductTag::firstOrCreate([
                 'product_id' => $product->id,
-                'teg_id' => $tagsId,
-
+                'tag_id' => $tagsId,
             ]);
         }
 
@@ -87,18 +68,19 @@ class ProductController extends Controller
             ]);
         }
 
-        foreach ($productImages as $productImage) {
-            $currentImagesCount = ProductImage::where('product_id', $product->id)->count();
+        if (array_key_exists('product_images', $data)) {
+            $productImages = $data['product_images'];
+            foreach ($productImages as $productImage) {
+                $currentImagesCount = ProductImage::where('product_id', $product->id)->count();
 
-            if ($currentImagesCount > 3) continue;
-            $filePath = Storage::disk('public')->put('products', $productImage);
-            ProductImage::create([
-                'product_id' => $product->id,
-                'file_path' => $filePath,
-
-            ]);
+                if ($currentImagesCount > 3) continue;
+                $filePath = Storage::disk('public')->put('products', $productImage);
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'file_path' => $filePath,
+                ]);
+            }
         }
-
         return redirect()->route('products.index');
     }
 
@@ -114,9 +96,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        $tegs = Teg::all();
+        $tags = Tag::all();
         $colors = Color::all();
-        return view('product.edit', ['product'=>$product,'categories'=>$categories, 'tegs'=>$tegs, 'colors'=>$colors]);
+        return view('product.edit', ['product'=>$product,'categories'=>$categories, 'tags'=>$tags, 'colors'=>$colors]);
     }
 
 
@@ -124,20 +106,46 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
-        $tegs = $data['tegs'];
+        if (array_key_exists('tags', $data)) {
+            $product->tags()->sync($data['tags']);
+            unset($data['tags']);
+        }
 
-        unset($data['tegs']);
+        if (array_key_exists('product_images', $data)) {
+            $productImages = $data['product_images'];
+            unset($data['product_images']);
+
+            $oldProductImages = ProductImage::where('product_id', $product->id)->get();
+
+            foreach ($oldProductImages as $oldProductImage) {
+                unlink(public_path('storage/'.$oldProductImage->file_path));
+                $oldProductImage->delete();
+            }
+
+            foreach ($productImages as $productImage) {
+                $filePath = Storage::disk('public')->put('products', $productImage);
+                dd($filePath);
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'file_path' => $filePath,
+                ]);
+            }
+
 
         $product->update($data);
-
-        $product->tegs()->sync($tegs);
-        return view('product.show', ['product'=>$product]);
-
+        return view('product.show', ['product' => $product]);
+        }
     }
+
+
 
 
     public function destroy(Product $product)
     {
+        $productImages = ProductImage::where('product_id', $product->id)->get();
+        foreach ($productImages as $productImage) {
+            unlink(public_path('storage/'.$productImage->file_path));
+        }
         $product->delete();
         return redirect()->route('products.index');
     }

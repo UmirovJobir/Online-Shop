@@ -6,7 +6,7 @@ use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
-use App\Models\Teg;
+use App\Models\Tag;
 
 class FilterListController
 {
@@ -14,7 +14,7 @@ class FilterListController
     {
         $categories = Category::all();
         $colors = Color::all();
-        $tegs = Teg::all();
+        $tegs = Tag::all();
 
         $maxPrice = Product::orderBy('price', 'DESC')->first()->price;
         $mixPrice = Product::orderBy('price', 'ASC')->first()->price;

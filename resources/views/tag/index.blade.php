@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Тег</h1>
+                    <h1 class="m-0">Теги</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -25,28 +25,25 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header d-flex p-3">
-                            <div class="mr-2">
-                            <a href="{{route('tegs.edit', ['teg'=>$teg->id])}}" class="btn btn-primary">Редактировать</a>
-                            </div>
-                            <form action="{{route('tegs.destroy', ['teg'=>$teg->id])}}" method="post">
-                                @csrf
-                                @method('delete')
-                                <input type="submit" class="btn btn-danger" value="Удалить">
-                            </form>
+                        <div class="card-header">
+                            <a href="{{route('tags.create')}}" class="btn btn-primary">Добавить</a>
                         </div>
 
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Наименование</th>
+                                </tr>
+                                </thead>
                                 <tbody>
+                                @foreach($tags as $tag)
                                     <tr>
-                                        <td>ID</td>
-                                        <td>{{$teg->id}}   </td>
+                                        <td>{{$tag->id}}</td>
+                                        <td><a href="{{route('tags.show',$tag->id)}}">#{{$tag->title}}</a></td>
                                     </tr>
-                                    <tr>
-                                        <td>Наименование</td>
-                                        <td>{{$teg->title}}</td>
-                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

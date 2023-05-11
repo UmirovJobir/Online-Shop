@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Teg;
+namespace App\Http\Requests\Tag;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TegStoreRequest extends FormRequest
+class TagUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

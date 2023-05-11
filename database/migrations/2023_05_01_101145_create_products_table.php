@@ -17,12 +17,8 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->text('content');
-            $table->string('preview_image')->nullable();
-
             $table->integer('price');
-            $table->integer('count');
-            $table->boolean('is_published')->default(true);
+            $table->boolean('status')->default(true);
 
             $table->foreignId('category_id')->nullable()->index()->constrained('categories');
 

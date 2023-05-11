@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductTeg extends Model
+class Tag extends Model
 {
     use HasFactory;
 
-    protected $table = 'product_teg';
+    protected $table = 'tags';
     protected $guarded = false;
 
-
-    public function teg()
+    public function product()
     {
-        return $this->belongsTo(Teg::class, 'teg_id', 'id');
+        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 }

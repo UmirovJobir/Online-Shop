@@ -44,7 +44,6 @@ class UserController extends Controller
     {
         $data = $request->validated();
         $user->update($data);
-        dd($data);
 
         return view('user.show', compact('user'));
     }

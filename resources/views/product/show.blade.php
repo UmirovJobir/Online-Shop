@@ -50,8 +50,8 @@
 {{--                                <span style="width: 16px; height: 16px; white-space: pre-line; border-radius: 20px; color:{{'#'.$color->title}}; background: {{'#'.$color->title}}">00</span>--}}
 {{--                            @endforeach--}}
 {{--                            <br>--}}
-{{--                            @foreach($product->tegs as $teg)--}}
-{{--                                <span style="white-space: pre-line; color:blue;">#{{$teg->title}}</span>--}}
+{{--                            @foreach($product->tegs as $tag)--}}
+{{--                                <span style="white-space: pre-line; color:blue;">#{{$tag->title}}</span>--}}
 {{--                            @endforeach--}}
 {{--                            <p class="card-text"><small class="text-muted">{{$product->created_at}}</small></p>--}}
 {{--                        </div>--}}
@@ -95,14 +95,6 @@
                                         <td>{{$product->description}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Content</td>
-                                        <td>{{$product->content}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Count</td>
-                                        <td>{{$product->count}}</td>
-                                    </tr>
-                                    <tr>
                                         <td>Price</td>
                                         <td>{{$product->price}}</td>
                                     </tr>
@@ -111,40 +103,14 @@
                                         <td>{{$product->category->title}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Published</td>
-                                        <td>{{$product->is_published}}</td>
+                                        <td>Status</td>
+                                        <td>{{$product->statusTitle}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Image</td>
-                                        @if ($product->preview_image)
-                                            <td><img width="22%" src="{{asset('storage/'.$product->preview_image)}}"></td>
-                                        @else
-                                            <td><img width="22%" src="{{asset('storage/images/unknown.jpg')}}"></td>
-                                        @endif
-                                    </tr>
-                                    <tr>
-                                        <td>Images</td>
+                                        <td>Tags</td>
                                         <td>
-                                            @foreach($product->productImages as $image)
-                                                <img src="{{asset('storage/'.$image->file_path)}}" alt="photo">
-                                            @endforeach
-                                        </td>
-{{--                                        <td>--}}
-{{--                                            @if ($product->images)--}}
-{{--                                                @php--}}
-{{--                                                    $images=explode(',',$product->images);--}}
-{{--                                                @endphp--}}
-{{--                                                @foreach($images as $image)--}}
-{{--                                                    <img src="{{asset('storage/products/'.$image)}}" alt="photo">--}}
-{{--                                                @endforeach--}}
-{{--                                            @endif--}}
-{{--                                        </td>--}}
-                                    </tr>
-                                    <tr>
-                                        <td>Tegs</td>
-                                        <td>
-                                            @foreach($product->tegs as $teg)
-                                                <p style="color:blue;">#{{$teg->title}}</p>
+                                            @foreach($product->tags as $tag)
+                                                <p style="color:blue;">#{{$tag->title}}</p>
                                             @endforeach
                                         </td>
                                     </tr>
@@ -153,6 +119,14 @@
                                         <td>
                                             @foreach($product->colors as $color)
                                                 <div style="width: 16px; height: 16px; border-radius: 20px; background: {{'#'.$color->title}}"></div>
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Images</td>
+                                        <td>
+                                            @foreach($product->productImages as $image)
+                                                <img src="{{asset('storage/'.$image->file_path)}}" alt="photo">
                                             @endforeach
                                         </td>
                                     </tr>

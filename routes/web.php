@@ -2,9 +2,8 @@
 
 use App\Http\Controllers\ColorController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\TegController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 
@@ -35,7 +34,7 @@ Route::group(['prefix'=>'categories'], function (){
    Route::delete('/{category}',[CategoryController::class, 'destroy'])->name('category.delete');
 });
 
-Route::resource('/tegs', TegController::class);
+Route::resource('/tags', TagController::class);
 Route::resource('/colors', ColorController::class);
 Route::resource('/users', UserController::class);
 Route::resource('/products', ProductController::class);

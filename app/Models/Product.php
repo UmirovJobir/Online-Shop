@@ -10,17 +10,22 @@ class Product extends Model
 {
     use Filterable;
 
+    const TRUE = 1;
+    const FALSE = 0;
+
+    static function getStatus(){
+        return [
+            self::TRUE => 'Faol',
+            self::FALSE => 'Faol emas',
+        ];
+    }
+    public function getStatusTitleAttribute(){
+        return self::getStatus()[$this->status];
+    }
+
     protected $table = 'products';
     protected $guarded = false;
 
-    public function getImageUrlAttribute()
-    {
-        if ($this->preview_image == null) {
-            return null;
-        }else{
-            return url('storage/' . $this->preview_image);
-        }
-    }
 
     public function category()
     {
@@ -37,10 +42,9 @@ class Product extends Model
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
 
-    public function tegs()
+    public function tags()
     {
-//        return $this->belongsToMany(Teg::class, 'product_tegs', 'product_id', 'teg_id');
-        return $this->belongsToMany(Teg::class)->as('tegs');
+        return $this->belongsToMany(Tag::class, 'product_tag', 'product_id', 'tag_id');
     }
 
 }
