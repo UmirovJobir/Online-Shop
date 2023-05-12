@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\ColorController;
+use App\Http\Controllers\WEB\CategoryController;
+use App\Http\Controllers\WEB\ColorController;
+use App\Http\Controllers\WEB\ProductController;
+use App\Http\Controllers\WEB\ProductImageController;
+use App\Http\Controllers\WEB\TagController;
+use App\Http\Controllers\WEB\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\TagController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ use App\Http\Controllers\ProductController;
 |
 */
 
+
+Route::post('/product_image/store', [ProductImageController::class, 'store'])->name('productimage.store');
+Route::post('/product_image/update', [ProductImageController::class, 'update'])->name('productimage.update');
 
 Route::get('/admin', App\Http\Controllers\Main\IndexController::class)->name('main.index');
 

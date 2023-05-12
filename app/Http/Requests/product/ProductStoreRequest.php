@@ -29,9 +29,9 @@ class ProductStoreRequest extends FormRequest
             "price" => "required",
             "status" => "nullable",
             "category_id" => "required",
-            "tags" => "nullable|array",
-            "colors" => "nullable|array",
-            "product_images"=>"nullable|array",
+//            "tags" => "nullable|array",
+//            "colors" => "nullable|array",
+//            "product_images"=>"nullable|array",
 
 
 

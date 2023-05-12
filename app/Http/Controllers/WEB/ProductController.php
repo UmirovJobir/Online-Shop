@@ -1,21 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\WEB;
 
 use App\Http\Requests\product\ProductStoreRequest;
 use App\Http\Requests\product\ProductUpdateRequest;
-use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use App\Models\Color;
+use App\Models\ColorProduct;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductTag;
 use App\Models\Tag;
-use App\Models\ColorProduct;
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
 
 
 class ProductController extends Controller
@@ -23,7 +19,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('id', 'DESC')->get();;
         return view('product.index', compact('products'));
     }
 
@@ -92,7 +88,6 @@ class ProductController extends Controller
     }
 
 
-
     public function edit(Product $product)
     {
         $categories = Category::all();
@@ -111,30 +106,22 @@ class ProductController extends Controller
             unset($data['tags']);
         }
 
+
         if (array_key_exists('product_images', $data)) {
             $productImages = $data['product_images'];
             unset($data['product_images']);
 
-            $oldProductImages = ProductImage::where('product_id', $product->id)->get();
-
-            foreach ($oldProductImages as $oldProductImage) {
-                unlink(public_path('storage/'.$oldProductImage->file_path));
-                $oldProductImage->delete();
-            }
-
             foreach ($productImages as $productImage) {
                 $filePath = Storage::disk('public')->put('products', $productImage);
-                dd($filePath);
                 ProductImage::create([
                     'product_id' => $product->id,
                     'file_path' => $filePath,
                 ]);
             }
 
-
-        $product->update($data);
-        return view('product.show', ['product' => $product]);
+            $product->update($data);
         }
+        return view('product.show', ['product' => $product]);
     }
 
 

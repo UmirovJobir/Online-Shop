@@ -17,17 +17,12 @@ class ProductResource extends JsonResource
             "id" => $this->id,
             "title" => $this->title,
             "description" => $this->description,
-            "content" => $this->content,
-            "preview_image" => $this->imageUrl,
-            "images" => $this->images,
             "price" => $this->price,
-            "count" => $this->count,
-            "is_published" => $this->is_published,
+            "status" => $this->status,
             "category" => new CategoryResource($this->category),
+            "tegs" => TagResource::collection($this->tags),
             "colors" => ColorResource::collection($this->colors),
             "product_images" => ProductImageResource::collection($this->productImages),
-//            "tegs" => $this->tegs,
-//            "colors" => $this->colors,
         ];
     }
 }

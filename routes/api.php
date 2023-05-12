@@ -21,7 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/products', [ProductAPIController::class, 'index']);
-Route::post('/products', IndexController::class);
-Route::get('/products/filters', FilterListController::class);
+//Route::get('/products', [ProductAPIController::class, 'index']);
+//Route::post('/products', IndexController::class);
+//Route::get('/products/filters', FilterListController::class);
 
+Route::apiResources(['products_api' => ProductAPIController::class]);

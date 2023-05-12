@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\WEB\Controller;
 use App\Http\Filters\ProductFilter;
 use App\Http\Requests\API\ProductAPIStoreRequest;
-use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
+use App\Models\Product;
 
 class IndexController extends Controller
 {

@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('admin_products.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <input type="text" name="title" class="form-control" placeholder="Наименование">
@@ -45,7 +45,7 @@
                                 <input name="product_images[]" type="file" class="custom-file-input" multiple="multiple" id="exampleInputFile">
                                 <label class="custom-file-label" for="exampleInputFile">Выберите файлы</label>
                             </div>
-                            <span style="color:red">{{$errors->first('product_images')}}</span>
+
                         </div>
                     </div>
 
