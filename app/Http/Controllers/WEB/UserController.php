@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\WEB;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\user\UserStoreRequest;
 use App\Http\Requests\user\UserUpdateRequest;
 use App\Models\User;

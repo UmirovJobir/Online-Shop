@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('/product_image/store', [ProductImageController::class, 'store'])->name('productimage.store');
-Route::post('/product_image/update', [ProductImageController::class, 'update'])->name('productimage.update');
+Route::post('/product_image/{id}/', [ProductImageController::class, 'store'])->name('productimage.store');
+Route::delete('/product_image/{id}', [ProductImageController::class, 'destroy'])->name('productimage.destroy');
 
 Route::get('/admin', App\Http\Controllers\Main\IndexController::class)->name('main.index');
 

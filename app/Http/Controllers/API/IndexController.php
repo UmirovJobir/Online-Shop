@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\WEB\Controller;
+use App\Http\Controllers\Controller;
 use App\Http\Filters\ProductFilter;
 use App\Http\Requests\API\ProductAPIStoreRequest;
 use App\Http\Resources\ProductResource;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\WEB\Controller;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\product\ProductStoreRequest;
 use App\Http\Requests\product\ProductUpdateRequest;
 use App\Http\Resources\ProductResource;
@@ -10,7 +10,6 @@ use App\Models\ColorProduct;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductTag;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ProductAPIController extends Controller
@@ -22,10 +21,6 @@ class ProductAPIController extends Controller
         return ProductResource::collection($products);
     }
 
-    public function create()
-    {
-        //
-    }
 
     public function store(ProductStoreRequest $request)
     {
@@ -63,9 +58,6 @@ class ProductAPIController extends Controller
         if (array_key_exists('product_images', $data)) {
             $productImages = $data['product_images'];
             foreach ($productImages as $productImage) {
-//                $currentImagesCount = ProductImage::where('product_id', $product->id)->count();
-//
-//                if ($currentImagesCount > 3) continue;
                 $filePath = Storage::disk('public')->put('products', $productImage);
                 ProductImage::create([
                     'product_id' => $product->id,
@@ -76,23 +68,65 @@ class ProductAPIController extends Controller
         return new ProductResource($product);
     }
 
+
     public function show($id)
     {
         $product = Product::with('productImages')->findOrFail($id);
         return new ProductResource($product);
     }
 
-    public function update(ProductUpdateRequest $request, Product $product)
+
+    public function update(ProductUpdateRequest $request, $id)
     {
         $data = $request->validated();
 
-        dd($data);
-        $product->update($data);
-        return $product;
+
+        $product = Product::with('productImages')->findOrFail($id);
+
+        if (array_key_exists('tags', $data)) {
+            $product->tags()->sync($data['tags']);
+            unset($data['tags']);
+        }
+
+
+        if (array_key_exists('product_images', $data)) {
+            $newImages = $data['product_images'];
+            unset($data['product_images']);
+
+            $productImages = ProductImage::where("product_id", $product->id)->get();
+            foreach ($productImages as $productImage){
+                unlink(public_path('storage/' . $productImage->file_path));
+                $productImage->delete();
+            }
+
+            foreach ($newImages as $image) {
+                $filePath = Storage::disk('public')->put('products', $image);
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'file_path' => $filePath,
+                ]);
+            }
+        }
+        return new ProductResource($product);
+
     }
 
     public function destroy($id)
     {
-        //
+        $product = Product::with('productImages')->findOrFail($id);
+
+        $productImages = ProductImage::where("product_id", $product->id)->get();
+        foreach ($productImages as $productImage){
+            unlink(public_path('storage/' . $productImage->file_path));
+            $productImage->delete();
+        }
+
+        $product->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => "Product deleted successfully!",
+        ], 200);
+
     }
 }

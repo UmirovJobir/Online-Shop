@@ -24,7 +24,6 @@ class ProductStoreImageRequest extends FormRequest
     public function rules()
     {
         return [
-            "product"=>"required",
             "product_images"=>"required|array",
         ];
     }

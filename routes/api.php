@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ProductImageAPIController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ProductAPIController;
@@ -26,3 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Route::get('/products/filters', FilterListController::class);
 
 Route::apiResources(['products_api' => ProductAPIController::class]);
+
+Route::post('/product_image_api/{id}', [ProductImageAPIController::class, 'store'])->name('product_image_api.store');
+Route::delete('/product_image_api/{id}', [ProductImageAPIController::class, 'destroy'])->name('product_image_api.destroy');
+

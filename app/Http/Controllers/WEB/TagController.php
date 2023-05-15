@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\WEB;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Tag\TagStoreRequest;
 use App\Models\Tag;
 

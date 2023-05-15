@@ -133,7 +133,7 @@
     <section class="content">
         <div class="container-fluid">
 
-                <form action="{{route('productimage.store', ['product'=>$product->id])}}" enctype="multipart/form-data" method="post">
+                <form action="{{route('productimage.store', ['id'=>$product->id])}}" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Add images</label>
@@ -148,8 +148,9 @@
                     <span style="color:red">{{$errors->first('product_images')}}</span>
                 </form>
 
-                <form action="{{route('productimage.update', ['product'=>$product->id])}}" enctype="multipart/form-data" method="post">
+                <form action="{{route('productimage.destroy', ['id'=>$product->id])}}" enctype="multipart/form-data" method="post">
                     @csrf
+                    @method('DELETE')
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Images</label>
                         <div class="col-sm-10">

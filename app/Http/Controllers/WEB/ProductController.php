@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\WEB;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\product\ProductStoreRequest;
 use App\Http\Requests\product\ProductUpdateRequest;
 use App\Models\Category;
