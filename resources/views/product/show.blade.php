@@ -72,11 +72,11 @@
                             <div class="mr-2">
                                 <a href="{{route('products.edit', ['product'=>$product->id])}}" class="btn btn-primary">Редактировать</a>
                             </div>
-                            <form action="{{route('products.destroy',['product'=>$product->id])}}" method="post">
-                                @csrf
-                                @method('delete')
-                                <input type="submit" class="btn btn-danger" value="Удалить">
-                            </form>
+{{--                            <form action="{{route('products.destroy',['product'=>$product->id])}}" method="post">--}}
+{{--                                @csrf--}}
+{{--                                @method('delete')--}}
+{{--                                <input type="submit" class="btn btn-danger" value="Удалить">--}}
+{{--                            </form>--}}
                         </div>
 
                         <div class="card-body table-responsive p-0">

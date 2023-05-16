@@ -4,7 +4,7 @@ namespace App\Http\Requests\product_image;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductStoreImageRequest extends FormRequest
+class ProductImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class ProductStoreImageRequest extends FormRequest
     public function rules()
     {
         return [
-            "product_images"=>"required|array",
+            "product_image"=>"required",
         ];
     }
 }

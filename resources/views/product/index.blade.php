@@ -1,7 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <style>
         img {
@@ -10,6 +11,15 @@
             height: 50px;
             object-fit: cover;
             /*margin-right: 10px;*/
+        }
+        .my-active span{
+            background-color: #5cb85c !important;
+            color: white !important;
+            border-color: #5cb85c !important;
+        }
+        ul.pager>li {
+            display: inline-flex;
+            padding: 5px;
         }
     </style>
 
@@ -39,8 +49,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{route('products.create')}}" class="btn btn-primary">Добавить</a>
-                        </div>
+                            <div class="row py-2">
+                                <div class="col-md-8 pd-2">
+                                    <a href="#" class="btn btn-danger" id="deleteAllSelectedRecord">Удалить все</a>
+                                    <a href="{{route('products.create')}}" class="btn btn-primary">Добавить</a>
+                                </div>
 
 {{--                        <div class="row">--}}
 {{--                            @foreach($products as $product)--}}
@@ -73,6 +86,7 @@
                                 <thead>
 
                                 <tr>
+                                    <th><input type="checkbox" name="" id="selected_all_ids"></th>
                                     <th>ID</th>
                                     <th>Заголовок</th>
                                     <th>Описание</th>
@@ -82,8 +96,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+
                                 @foreach($products as $product)
-                                    <tr>
+                                    <tr id="$product_ids{{$product->id}}">
+                                        <td><input type="checkbox" name="ids" class="checkbox_ids" id="" value="{{ $product->id }}"></td>
                                         <td>{{$product->id}}</td>
                                         <td>{{$product->title}}</a></td>
                                         <td>{{$product->description}}</td>
@@ -116,7 +132,45 @@
                 </div>
             </div>
             <!-- /.row -->
+            <div class="d-flex">
+                {!! $products->links() !!}
+            </div>
         </div><!-- /.container-fluid -->
+
+        <script>
+            $(function(e){
+                $("#selected_all_ids").click(function(){
+                    $('.checkbox_ids').prop('checked',$(this).prop('checked'));
+                });
+
+                $("#deleteAllSelectedRecord").click(function(e){
+                    e.preventDefault();
+                    var all_ids = [];
+                    $('input:checkbox[name=ids]:checked').each(function () {
+                        all_ids.push($(this).val());
+                    });
+
+                    $.ajax({
+                        url:"{{route('selectedproducts.destroy')}}",
+                        type:"DELETE",
+                        data: {
+                            ids: all_ids,
+                            _token: "{{csrf_token()}}"
+                        },
+                        success:function (response){
+                            $.each(all_ids, function(key,val){
+                                $('#product_ids' + val).remove();
+                            })
+                        }
+
+                    });
+                    location.reload();
+                });
+            });
+
+        </script>
     </section>
     <!-- /.content -->
+
 @endsection
+

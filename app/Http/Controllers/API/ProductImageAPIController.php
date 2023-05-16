@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\product_image\ProductStoreImageRequest;
+use App\Http\Requests\product_image\ProductImageRequest;
 use App\Http\Resources\ProductImageResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 class ProductImageAPIController extends Controller
 {
 
-    public function store(ProductStoreImageRequest $request, $id)
+    public function store(ProductImageRequest $request, $id)
     {
         $data = $request->validated();
         $newImages = $data['product_images'];

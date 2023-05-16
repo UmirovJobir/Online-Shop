@@ -12,15 +12,19 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductTag;
 use App\Models\Tag;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 
 class ProductController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('id', 'DESC')->get();;
+        $products = Product::orderBy('id', 'DESC')->paginate(8);
+
         return view('product.index', compact('products'));
     }
 
@@ -126,8 +130,6 @@ class ProductController extends Controller
     }
 
 
-
-
     public function destroy(Product $product)
     {
         $productImages = ProductImage::where('product_id', $product->id)->get();
@@ -137,6 +139,15 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index');
     }
+
+
+    public function selectedproductsDestroy(Request $request)
+    {
+        $ids = $request->ids;
+        Product::whereIn('id', $ids)->delete();
+        return redirect('products.edit');
+    }
+
 }
 
 

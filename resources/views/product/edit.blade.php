@@ -106,6 +106,15 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Add images</label>
+                        <div class="col-sm-10">
+                            <input name="product_images[]" type="file" class="custom-file-input" multiple="multiple" id="exampleInputFile">
+                            <label class="custom-file-label" for="exampleInputFile">Выберите файлы</label>
+                        </div>
+                        <span style="color:red">{{$errors->first('product_images')}}</span>
+                    </div>
+
 
                     <div class="form-group row">
                         <input type="submit" class="btn btn-primary" value="Добавить">
@@ -132,22 +141,6 @@
 
     <section class="content">
         <div class="container-fluid">
-
-                <form action="{{route('productimage.store', ['id'=>$product->id])}}" enctype="multipart/form-data" method="post">
-                    @csrf
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Add images</label>
-                        <div class="col-sm-10">
-                            <input name="product_images[]" type="file" class="custom-file-input" multiple="multiple" id="exampleInputFile">
-                            <label class="custom-file-label" for="exampleInputFile">Выберите файлы</label>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <input type="submit" class="btn btn-primary" value="Добавить">
-                    </div>
-                    <span style="color:red">{{$errors->first('product_images')}}</span>
-                </form>
-
                 <form action="{{route('productimage.destroy', ['id'=>$product->id])}}" enctype="multipart/form-data" method="post">
                     @csrf
                     @method('DELETE')
@@ -168,5 +161,4 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-
 @endsection

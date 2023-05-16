@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WEB\CategoryController;
 use App\Http\Controllers\WEB\ColorController;
 use App\Http\Controllers\WEB\ProductController;
@@ -19,9 +20,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-Route::post('/product_image/{id}/', [ProductImageController::class, 'store'])->name('productimage.store');
+
 Route::delete('/product_image/{id}', [ProductImageController::class, 'destroy'])->name('productimage.destroy');
+Route::delete('/selectedproducts/', [ProductController::class, 'selectedproductsDestroy'])->name('selectedproducts.destroy');
 
 Route::get('/admin', App\Http\Controllers\Main\IndexController::class)->name('main.index');
 
@@ -43,3 +46,7 @@ Route::resource('/colors', ColorController::class);
 Route::resource('/users', UserController::class);
 Route::resource('/products', ProductController::class);
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
