@@ -25,14 +25,7 @@ class User extends Authenticatable
         return self::getGender()[$this->gender];
     }
 
-
-
     protected $guarded = false;
-//    protected $fillable = [
-//        'name',
-//        'email',
-//        'password',
-//    ];
 
     protected $hidden = [
         'password',

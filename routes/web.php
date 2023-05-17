@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 
 Route::delete('/product_image/{id}', [ProductImageController::class, 'destroy'])->name('productimage.destroy');
@@ -46,7 +45,3 @@ Route::resource('/colors', ColorController::class);
 Route::resource('/users', UserController::class);
 Route::resource('/products', ProductController::class);
 
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
