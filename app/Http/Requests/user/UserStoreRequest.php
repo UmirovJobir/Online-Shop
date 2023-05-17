@@ -24,14 +24,14 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'email' => 'required|string',
-            'password' => 'required|string|confirmed',
             'surname' => 'nullable|string',
+            'name' => 'required|string',
             'patronymic' => 'nullable|string',
+            'email' => 'required|email',
             'age' => 'nullable|integer',
             'address' => 'nullable|string',
             'gender' => 'nullable|integer',
+            'password' => 'required|string|confirmed',
         ];
     }
 }

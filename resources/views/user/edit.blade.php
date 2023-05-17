@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <select name="gender" class="custom-select form-control" id="exampleSelectBorder">
                             <option disabled selected>Пол</option>
-                            <option {{$user->address == 1 || old('gender')==1 ? ' selected':''}} value="1">Мужской</option>
+                            <option {{$user->gender == 1 || old('gender')==1 ? ' selected':''}} value="1">Мужской</option>
                             <option {{$user->gender == 2 || old('gender')==2 ? ' selected':''}} value="2">Женский</option>
                         </select>
                     </div>

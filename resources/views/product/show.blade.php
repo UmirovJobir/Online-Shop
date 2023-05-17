@@ -103,6 +103,10 @@
                                         <td>{{$product->category->title}}</td>
                                     </tr>
                                     <tr>
+                                        <td>User</td>
+                                        <td><a href="{{ route('users.show', ['user' => $product->user->id]) }}">{{$product->user->name}}</a></td>
+                                    </tr>
+                                    <tr>
                                         <td>Status</td>
                                         <td>{{$product->statusTitle}}</td>
                                     </tr>

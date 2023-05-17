@@ -69,7 +69,7 @@
                                     </tr>
                                     <tr>
                                         <td>Пол</td>
-                                        <td>{{$user->genderTitle}}</td>
+                                        <td>{{$user->gender}}</td>
                                     </tr>
                                 </tbody>
                             </table>

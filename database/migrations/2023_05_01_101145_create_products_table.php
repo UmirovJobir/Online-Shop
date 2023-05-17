@@ -20,7 +20,8 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->boolean('status')->default(true);
 
-            $table->foreignId('category_id')->nullable()->index()->constrained('categories');
+            $table->foreignId('category_id')->index()->constrained('categories')->onDelete('cascade');;
+            $table->foreignId('user_id')->index()->constrained('users')->onDelete('cascade');
 
             $table->timestamps();
         });

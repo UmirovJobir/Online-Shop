@@ -31,6 +31,7 @@ class ProductAPIController extends Controller
             'description' =>$data['description'],
             'price' =>$data['price'],
             'category_id' =>$data['category_id'],
+            'user_id' => auth()->user()->id
         ]);
 
 

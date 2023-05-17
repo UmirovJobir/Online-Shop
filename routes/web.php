@@ -23,7 +23,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::delete('/product_image/{id}', [ProductImageController::class, 'destroy'])->name('productimage.destroy');
+
 Route::delete('/selectedproducts/', [ProductController::class, 'selectedproductsDestroy'])->name('selectedproducts.destroy');
+Route::delete('/selectedusers/', [ProductController::class, 'selectedusersDestroy'])->name('selectedusers.destroy');
 
 Route::get('/admin', App\Http\Controllers\Main\IndexController::class)->name('main.index');
 

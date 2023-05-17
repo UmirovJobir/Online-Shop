@@ -5,13 +5,16 @@ namespace App\Http\Controllers\WEB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\user\UserStoreRequest;
 use App\Http\Requests\user\UserUpdateRequest;
+use App\Models\Product;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('id', 'DESC')->paginate(8);
+
         return view('user.index', compact('users'));
     }
 
@@ -48,8 +51,16 @@ class UserController extends Controller
         return view('user.show', compact('user'));
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('users.index');
+    }
+
+    public function selectedusersDestroy(Request $request)
+    {
+        $ids = $request->ids;
+        User::whereIn('id', $ids)->delete();
+        return redirect('users.edit');
     }
 }

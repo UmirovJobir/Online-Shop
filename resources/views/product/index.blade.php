@@ -92,6 +92,7 @@
                                     <th>Описание</th>
                                     <th>Цена</th>
                                     <th>Категория</th>
+                                    <th>User</th>
                                     <th>Статус</th>
                                 </tr>
                                 </thead>
@@ -105,6 +106,7 @@
                                         <td>{{$product->description}}</td>
                                         <td>{{$product->price}}</td>
                                         <td>{{$product->category->title}}</td>
+                                        <td>{{$product->user->name}}</td>
                                         <td>{{$product->statusTitle}}</td>
                                         <td>
                                             <div class="row">
@@ -136,6 +138,10 @@
                 {!! $products->links() !!}
             </div>
         </div><!-- /.container-fluid -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
 
         <script>
             $(function(e){
@@ -167,10 +173,9 @@
                     location.reload();
                 });
             });
-
         </script>
-    </section>
-    <!-- /.content -->
+
+
 
 @endsection
 
