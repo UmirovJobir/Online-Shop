@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\API\ProductImageAPIController;
-use App\Http\Controllers\API\TestProductAPIController;
 use App\Http\Controllers\PassportAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +22,6 @@ use \App\Http\Controllers\API\IndexController;
 Route::post('/register', [PassportAuthController::class, 'register']);
 Route::post('/login', [PassportAuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
-//    Route::resource('products_api', TestProductAPIController::class);
     Route::apiResources(['products_api' => ProductAPIController::class]);
 });
 
