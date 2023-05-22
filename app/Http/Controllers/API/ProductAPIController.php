@@ -14,6 +14,31 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductAPIController extends Controller
 {
+    /**
+     * @OA\Get(
+     *    path="/articles",
+     *    operationId="index",
+     *    tags={"Articles"},
+     *    summary="Get list of articles",
+     *    description="Get list of articles",
+     *    @OA\Parameter(name="limit", in="query", description="limit", required=false,
+     *        @OA\Schema(type="integer")
+     *    ),
+     *    @OA\Parameter(name="page", in="query", description="the page number", required=false,
+     *        @OA\Schema(type="integer")
+     *    ),
+     *    @OA\Parameter(name="order", in="query", description="order  accepts 'asc' or 'desc'", required=false,
+     *        @OA\Schema(type="string")
+     *    ),
+     *     @OA\Response(
+     *          response=200, description="Success",
+     *          @OA\JsonContent(
+     *             @OA\Property(property="status", type="integer", example="200"),
+     *             @OA\Property(property="data",type="object")
+     *          )
+     *       )
+     *  )
+     */
 
     public function index()
     {
