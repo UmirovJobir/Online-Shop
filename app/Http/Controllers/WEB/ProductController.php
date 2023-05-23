@@ -13,6 +13,7 @@ use App\Models\ProductImage;
 use App\Models\ProductTag;
 use App\Models\Tag;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +35,8 @@ class ProductController extends Controller
         $tags = Tag::all();
         $colors = Color::all();
         $categories = Category::all();
-        return view('product.create', compact('tags', 'colors', 'categories'));
+        $users = User::all();
+        return view('product.create', compact('tags', 'colors', 'categories', 'users'));
     }
 
 
@@ -50,6 +52,7 @@ class ProductController extends Controller
             'description' =>$data['description'],
             'price' =>$data['price'],
             'category_id' =>$data['category_id'],
+            'user_id' => $data['user_id']
         ]);
 
 

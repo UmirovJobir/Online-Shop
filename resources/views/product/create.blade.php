@@ -76,6 +76,17 @@
 {{--                    </div>--}}
 
                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">User</label>
+                        <div class="col-sm-10">
+                            <select name="user_id" class="form-control select2" style="width: 100%;">
+                                @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Title</label>
                         <div class="col-sm-10">
                             <input type="text" name="title" class="form-control" placeholder="Наименование">
@@ -111,7 +122,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Tags</label>
                         <div class="col-sm-10">
-                            <select id="tegs" name="tegs[]" class="tegs" multiple data-placeholder="Выберите тег" style="width: 100%;">
+                            <select id="tags" name="tags[]" class="tags" multiple data-placeholder="Выберите тег" style="width: 100%;">
                                 @foreach($tags as $tag)
                                     <option value="{{$tag->id}}">{{$tag->title}}</option>
                                 @endforeach
@@ -120,15 +131,16 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Tags</label>
+                        <label class="col-sm-2 col-form-label">Colors</label>
                         <div class="col-sm-10">
-                            <select id="colors" name="colors[]" class="tegs" multiple data-placeholder="Выберите тег" style="width: 100%;">
+                            <select id="colors" name="colors[]" class="colors" multiple data-placeholder="Выберите тег" style="width: 100%;">
                                 @foreach($colors as $color)
                                     <option value="{{$color->id}}">{{$color->title}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
+
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Add images</label>

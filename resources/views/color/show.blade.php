@@ -49,7 +49,7 @@
                                     </tr>
                                     <tr>
                                         <td>Цвет</td>
-                                        <td><div style="width: 16px; height: 16px; border-radius: 20px; background: {{'#'.$color->title}}"></div></td>
+                                        <td><div style="width: 16px; height: 16px; border-radius: 20px; background: {{$color->title}}"></div></td>
                                     </tr>
                                 </tbody>
                             </table>

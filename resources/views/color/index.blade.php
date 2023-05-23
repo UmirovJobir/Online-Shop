@@ -42,8 +42,8 @@
                                 @foreach($colors as $color)
                                     <tr>
                                         <td>{{$color->id}}</td>
-                                        <td><a href="{{route('colors.show',$color->id)}}">#{{$color->title}}</a></td>
-                                        <td><div style="width: 16px; height: 16px; border-radius: 20px; background: {{'#'.$color->title}}"></div></td>
+                                        <td><a href="{{route('colors.show',$color->id)}}">{{$color->title}}</a></td>
+                                        <td><div style="width: 16px; height: 16px; border-radius: 20px; background: {{$color->title}}"></div></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

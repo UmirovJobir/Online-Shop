@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use Filterable;
+    use Filterable, HasFactory;
 
     const TRUE = 1;
     const FALSE = 0;
