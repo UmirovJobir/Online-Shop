@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\WEB;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\product\FilterRequest;
 use App\Http\Requests\product\ProductStoreRequest;
 use App\Http\Requests\product\ProductUpdateRequest;
 use App\Models\Category;
@@ -22,9 +23,13 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(FilterRequest $request)
     {
-        $products = Product::orderBy('id', 'DESC')->paginate(8);
+        $data = $request->validated();
+
+        dd($data);
+
+        $products = Product::orderBy('id', 'DESC')->paginate(10);
 
         return view('product.index', compact('products'));
     }

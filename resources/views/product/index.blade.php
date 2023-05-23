@@ -135,7 +135,7 @@
             </div>
             <!-- /.row -->
             <div class="d-flex">
-                {!! $products->links() !!}
+                {{ $products->links() }}
             </div>
         </div><!-- /.container-fluid -->
             </div>
