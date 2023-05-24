@@ -53,6 +53,18 @@
                 </div>
             </div>
             <!-- /.row -->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <div class="d-flex">
+                        {{ $categories->withQueryString()->links() }}
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li>{{ $categories->count() }} categories</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div>
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

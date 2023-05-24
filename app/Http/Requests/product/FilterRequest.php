@@ -32,7 +32,6 @@ class FilterRequest extends FormRequest
             "category_id" => "nullable",
             "tags" => "nullable|array",
             "colors" => "nullable|array",
-            "product_images"=>"nullable|array",
 
 //            'user_id' => "",
 //            "title" => "string",

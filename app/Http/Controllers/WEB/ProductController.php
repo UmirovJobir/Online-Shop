@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\WEB;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\ProductFilter;
 use App\Http\Requests\product\FilterRequest;
 use App\Http\Requests\product\ProductStoreRequest;
 use App\Http\Requests\product\ProductUpdateRequest;
@@ -27,11 +28,13 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
-        dd($data);
+        $filter = app()->make(ProductFilter::class, ['queryParams' => array_filter($data)]);
+        $fileredProducts = Product::filter($filter);
 
-        $products = Product::orderBy('id', 'DESC')->paginate(10);
+        $products_count = $fileredProducts->count();
+        $products = $fileredProducts->orderBy('id', 'DESC')->paginate(8);
 
-        return view('product.index', compact('products'));
+        return view('product.index', compact('products', 'products_count'));
     }
 
 

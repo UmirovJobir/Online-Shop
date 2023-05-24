@@ -6,27 +6,47 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ProductFilter extends AbstractFilter
 {
-
-    const CATEGORIES = 'categories';
-    const COLORS = 'colors';
-    const PRICES = 'prices';
-    const TEGS = 'tegs';
+    public const USER_ID = 'user_id';
+    public const TITLE = 'title';
+    public const PRICE = 'price';
+    public const STATUS = 'status';
+    public const CATEGORY_ID = 'category_id';
+    public const COLORS = 'colors';
+    public const TAGS = 'tags';
 
     public function getCallbacks(): array
     {
         return [
-            self::CATEGORIES => [$this, 'categories'],
+//            self::TITLE => [$this, 'title'],
+//            self::PRICE => [$this, 'price'],
+//            self::CATEGORY_ID => [$this, 'categoryId'],
+            self::CATEGORY_ID => [$this, 'categories'],
             self::COLORS => [$this, 'colors'],
-            self::PRICES => [$this, 'prices'],
-            self::TEGS => [$this, 'tegs'],
+            self::TAGS => [$this, 'tags'],
         ];
     }
 
+//    public function title(Builder $builder, $value)
+//    {
+//        $builder->where('title', 'like', "%{$value}%");
+//
+//    }
+//
+//    public function categoryId(Builder $builder, $value)
+//    {
+//        $builder->where('category_id', $value);
+//    }
+//
+//    public function price(Builder $builder, $value)
+//    {
+//        $builder->where('price', $value);
+//    }
 
-    public function categories(Builder $builder, $value)
+    protected function categories(Builder $builder, $value)
     {
         $builder->whereIn('category_id', $value);
     }
+
 
     public function colors(Builder $builder, $value)
     {
@@ -35,15 +55,10 @@ class ProductFilter extends AbstractFilter
         });
     }
 
-    public function prices(Builder $builder, $value)
+    public function tags(Builder $builder, $value)
     {
-        $builder->whereBetween('price', $value);
-    }
-
-    public function tegs(Builder $builder, $value)
-    {
-        $builder->whereHas('tegs', function ($b) use ($value){
-            $b->whereIn('teg_id', $value);
+        $builder->whereHas('tags', function ($b) use ($value){
+            $b->whereIn('tag_id', $value);
         });
     }
 }

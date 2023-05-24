@@ -15,7 +15,9 @@ class UserController extends Controller
     {
         $users = User::orderBy('id', 'DESC')->paginate(10);
 
-        return view('user.index', compact('users'));
+        $users_count = User::all()->count();
+
+        return view('user.index', compact('users', 'users_count'));
     }
 
     public function create()

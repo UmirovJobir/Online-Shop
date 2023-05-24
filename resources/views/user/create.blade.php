@@ -38,16 +38,16 @@
                         <input type="email" value="{{old('email')}}" name="email" class="form-control" placeholder="Эмаил">
                     </div>
                     <div class="form-group">
-                        <input type="text" value="{{old('age')}}" name="age" class="form-control" placeholder="Возраст">
+                        <input type="number" value="{{old('age')}}" name="age" class="form-control" placeholder="Возраст">
                     </div>
                     <div class="form-group">
                         <input type="text" value="{{old('address')}}" name="address" class="form-control" placeholder="Адрес">
                     </div>
                     <div class="form-group">
-                        <input type="text" value="{{old('password')}}" name="password" class="form-control" placeholder="Пороль">
+                        <input type="number" value="{{old('password')}}" name="password" class="form-control" placeholder="Пороль">
                     </div>
                     <div class="form-group">
-                        <input type="text" value="{{old('password_confirmation')}}" name="password_confirmation" class="form-control" placeholder="Повторить пороль">
+                        <input type="number" value="{{old('password_confirmation')}}" name="password_confirmation" class="form-control" placeholder="Повторить пороль">
                     </div>
                     <div class="form-group">
                         <select name="gender" class="custom-select form-control" id="exampleSelectBorder">

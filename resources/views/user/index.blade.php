@@ -104,8 +104,17 @@
                         </div>
                     </div>
                     <!-- /.row -->
-                    <div class="d-flex">
-                        {!! $users->links() !!}
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <div class="d-flex">
+                                {{ $users->withQueryString()->links() }}
+                            </div>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li>{{ $users_count }} users</li>
+                            </ol>
+                        </div><!-- /.col -->
                     </div>
                 </div><!-- /.container-fluid -->
 
